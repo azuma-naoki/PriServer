@@ -6,7 +6,7 @@ import base64
 from io import BytesIO
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 @app.route("/")
 def hello_world():
