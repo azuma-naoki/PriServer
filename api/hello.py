@@ -8,7 +8,7 @@ from io import BytesIO
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/pri")
+@app.route("/")
 def hello_world():
     return "<p> Welcome PriServer!</p>"
 
