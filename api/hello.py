@@ -45,3 +45,39 @@ def write():
     data = {"value":base64_data}
 
     return jsonify(data)
+
+
+@app.route("/graph", methods=['POST'])
+def graph():
+    json = request.get_json()
+
+    # x = json['x']
+    # y = json['y']
+
+    isGrid = json['grid']
+    dataset = json['datasets']
+    xdata = json['xdata']
+
+    # x = np.array(x, dtype=np.uint8)
+    # y = np.array(y, dtype=np.uint8)
+
+    xdata = np.array(xdata, dtype=np.uint8)
+    ydata = []
+    for data in dataset:
+        ydata.append(np.array(data['ydata'], dtype=np.uint8))
+    
+
+    # plt.plot(x, y)
+    for y in ydata:
+        plt.plot(xdata, y)
+
+    ofs = BytesIO()
+    plt.savefig(ofs, format="jpg")
+    png_data = ofs.getvalue()
+    plt.close()
+
+    base64_data = base64.b64encode(png_data).decode()
+
+    data = {"value":base64_data}
+
+    return jsonify(data)
